@@ -1,0 +1,39 @@
+from django.db.models import Sum
+from tokoadmin.models import Buku, DetailPembelian
+# Query untuk top buku terlaris
+top_buku_terlaris = (
+    DetailPembelian.objects
+    .values('buku__judulBuku')
+    .annotate(total_terjual=Sum('jumlahPieces'))
+    .order_by('-total_terjual')[:10]  # Ambil 10 teratas
+)
+for buku in top_buku_terlaris:
+    print(f"Buku: {buku['buku__judulBuku']}, Terjual: {buku['total_terjual']}")
+
+
+
+from django.db.models import Sum, F
+from tokoadmin.models import Buku, DetailPembelian
+# Query untuk top buku dengan pendapatan terbanyak
+top_buku_pendapatan = (
+    DetailPembelian.objects
+    .values('buku__judulBuku')
+    .annotate(total_pendapatan=Sum(F('jumlahPieces') * F('buku__harga')))
+    .order_by('-total_pendapatan')[:10]  # Ambil 10 teratas
+)
+for buku in top_buku_pendapatan:
+    print(f"Buku: {buku['buku__judulBuku']}, Pendapatan: {buku['total_pendapatan']}")
+
+
+
+from django.db.models import Count
+from tokoadmin.models import Pembelian, Pembeli
+# Query untuk top pekerjaan yang sering melakukan transaksi
+top_pekerjaan_transaksi = (
+    Pembeli.objects
+    .values('pekerjaan')
+    .annotate(jumlah_transaksi=Count('pembelian'))
+    .order_by('-jumlah_transaksi')[:10]  # Ambil 10 teratas
+)
+for pekerjaan in top_pekerjaan_transaksi:
+    print(f"Pekerjaan: {pekerjaan['pekerjaan']}, Transaksi: {pekerjaan['jumlah_transaksi']}")
