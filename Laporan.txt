@@ -22,7 +22,7 @@ top_buku_pendapatan = (
     .order_by('-total_pendapatan')[:10]  # Ambil 10 teratas
 )
 for buku in top_buku_pendapatan:
-    print(f"Buku: {buku['buku__judulBuku']}, Pendapatan: {buku['total_pendapatan']}")
+    print(f"Buku: {buku['buku__judulBuku']}, Pendapatan: Rp.{buku['total_pendapatan']}")
 
 
 
