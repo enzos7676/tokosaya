@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laporan Penjualan</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'homepage' %}">Home</a>
+        <a href="{% url 'laporan' %}">Laporan</a>
+    </nav>
+
+    <button id="mode-toggle" onclick="toggleMode()">Mode Gelap/Cerah</button>
+
+    <div class="container">
+        <h1>Laporan Penjualan Toko Buku</h1>
+
+        <div class="description-box">
+            <h2>Deskripsi Laporan</h2>
+            <p>
+                Halaman ini memberikan laporan terkini mengenai penjualan di Toko Buku Kami. Anda dapat melihat buku terlaris, buku dengan pendapatan tertinggi, serta pekerjaan yang paling sering melakukan transaksi. Temukan informasi lebih lanjut di bawah ini.
+            </p>
+        </div>
+
+        <h2>Top Buku Terlaris</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Judul Buku</th>
+                    <th>Terjual</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for buku in top_buku_terlaris %}
+                    <tr>
+                        <td>{{ buku.buku__judulBuku }}</td>
+                        <td>{{ buku.total_terjual }} unit</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Top Buku dengan Pendapatan Terbanyak</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Judul Buku</th>
+                    <th>Pendapatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for buku in top_buku_pendapatan %}
+                    <tr>
+                        <td>{{ buku.buku__judulBuku }}</td>
+                        <td>Rp.{{ buku.total_pendapatan }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Top Pekerjaan yang Sering Melakukan Transaksi</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pekerjaan</th>
+                    <th>Jumlah Transaksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pekerjaan in top_pekerjaan_transaksi %}
+                    <tr>
+                        <td>{{ pekerjaan.pekerjaan }}</td>
+                        <td>{{ pekerjaan.jumlah_transaksi }} transaksi</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        &copy; 2024 Toko Buku - Semua hak dilindungi.
+    </footer>
+
+    <script>
+        // Switch between light and dark mode
+        function toggleMode() {
+            var body = document.body;
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+            }
+        }
+
+        // Default mode setting
+        document.body.classList.add('light-mode');
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'homepage' %}">Home</a>
+        <a href="{% url 'laporan' %}">Laporan</a>
+    </nav>
+    
+    <button id="mode-toggle" onclick="toggleMode()">Mode Gelap/Cerah</button>
+    
+    <div class="container">
+        <h1>Selamat Datang di Toko Buku Kami</h1>
+
+        <div class="description-box">
+            <h2>Tentang Toko Kami</h2>
+            <p>
+                Kami menyediakan berbagai macam buku berkualitas dengan harga terjangkau untuk memenuhi semua kebutuhan bacaan Anda. Temukan buku favorit Anda dan dapatkan penawaran menarik hanya di Toko Buku Kami. 
+            </p>
+        </div>
+        
+        <p>
+            Anda bisa menjelajahi laporan penjualan kami untuk melihat buku terlaris dan top pendapatan. Kami juga menyediakan laporan mengenai transaksi berdasarkan pekerjaan pembeli. Silakan klik tombol di bawah untuk melihat laporan lebih lanjut.
+        </p>
+        <a href="{% url 'laporan' %}" class="button">Lihat Laporan Penjualan</a>
+    </div>
+
+    <footer>
+        &copy; 2024 Toko Buku - Semua hak dilindungi.
+    </footer>
+
+    <script>
+        // Switch between light and dark mode
+        function toggleMode() {
+            var body = document.body;
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+            }
+        }
+
+        // Default mode setting
+        document.body.classList.add('light-mode');
+    </script>
+</body>
+</html>

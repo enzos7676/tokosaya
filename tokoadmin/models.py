@@ -93,7 +93,7 @@ def update_stok(sender, instance, **kwargs):
         
         if gudang.stok >= instance.jumlahPieces:
             # Mengurangi stok sesuai dengan jumlah pembelian
-            gudang.astok -= instance.jumlahPieces
+            gudang.stok -= instance.jumlahPieces
             gudang.save()
         else:
             raise ValidationError("Stok tidak mencukupi!")  # Jika stok tidak cukup, lemparkan error
